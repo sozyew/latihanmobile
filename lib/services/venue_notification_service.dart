@@ -7,7 +7,7 @@ class VenueNotificationService {
       FlutterLocalNotificationsPlugin();
 
   bool _initialized = false;
-
+  // NOTIFIKASI LOKAL: inisialisasi dan minta izin
   Future<void> initialize() async {
     if (_initialized) return;
 
@@ -74,7 +74,7 @@ class VenueNotificationService {
       android: androidDetails,
       iOS: iosDetails,
     );
-
+    // NOTIFIKASI LOKAL: dijadwalkan sesuai pilihan pengguna
     await _plugin.zonedSchedule(
       id,
       'SG GP Tickets',

@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
     'hospitality',
   ];
   static const List<String> _categoryLabels = ['All', 'Stands', 'Walk', 'VIP'];
-
+  // GETX: mengambil controller dengan Get.find
   @override
   Widget build(BuildContext context) {
     final homeCtrl = Get.find<HomeController>();
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-
+              // GETX: Obx memperbarui filter saat kategori berubah
               // 3. Filter geser
               FadeSlideIn(
                 delay: const Duration(milliseconds: 160),
@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
+  // DATA STATIS: jadwal race weekend
   Widget _buildSchedule(HomeController homeCtrl) {
     const rows = [
       ['Fri 8 Oct', 'Practice 1 & 2', '17:30 & 21:00 SGT'],
@@ -220,7 +220,7 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
-
+  // API + GETX: menampilkan data cuaca secara reaktif
   /// Cuaca trek, ditaruh ringkas di section Race Weekend (bukan di hero).
   Widget _buildWeatherStrip(HomeController homeCtrl) {
     return Obx(() {

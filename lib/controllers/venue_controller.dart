@@ -12,9 +12,9 @@ class GateDistance {
     required this.gate,
     required this.distance,
   });
-
+  // LBS: gate dianggap dekat jika jaraknya di bawah 150 m
   bool get isNearby => distance < 150;
-
+  // CHALLENGE: format satuan jarak (m/km)
   String get formattedDistance {
     if (distance < 1000) {
       return '${distance.round()} m';
@@ -53,7 +53,7 @@ class VenueController extends GetxController {
     super.onReady();
     initializeVenue();
   }
-
+  // LOCAL STORAGE: membuka box Hive untuk reminder
   Future<void> initializeVenue() async {
     if (_initialized || isLoading.value) return;
     _initialized = true;
@@ -80,7 +80,7 @@ class VenueController extends GetxController {
       _reminderBox!.values.whereType<Map>().toList(),
     );
   }
-
+  // LBS: cek layanan dan izin lokasi
   Future<void> refreshLocation() async {
     isLoading.value = true;
     errorMessage.value = '';
@@ -120,7 +120,7 @@ class VenueController extends GetxController {
       }
 
       hasPermission.value = true;
-
+      // LBS: mengambil posisi GPS pengguna
       final position = await Geolocator.getCurrentPosition(
         timeLimit: const Duration(seconds: 10),
       );
@@ -135,7 +135,7 @@ class VenueController extends GetxController {
       isLoading.value = false;
     }
   }
-
+  // LBS: jarak garis lurus pengguna ke gate (meter)
   void calculateDistances(Position position) {
     final results = VenueGate.all.map((gate) {
       final distance = Geolocator.distanceBetween(
@@ -150,7 +150,7 @@ class VenueController extends GetxController {
         distance: distance,
       );
     }).toList();
-
+    	// LBS: urutkan gate dari yang terdekat
     results.sort(
       (a, b) => a.distance.compareTo(b.distance),
     );
@@ -173,7 +173,7 @@ class VenueController extends GetxController {
     }
 
     final id = DateTime.now().microsecondsSinceEpoch.remainder(2147483647);
-
+    // NOTIFIKASI: jadwalkan reminder gate
     await notifications.scheduleReminder(
       id: id,
       gateName: gate.name,
@@ -187,7 +187,7 @@ class VenueController extends GetxController {
       'location': gate.location,
       'dateTime': dateTime.toIso8601String(),
     };
-
+    	// LOCAL STORAGE: simpan reminder ke Hive
     await _reminderBox!.put(
       id.toString(),
       reminder,
@@ -200,7 +200,7 @@ class VenueController extends GetxController {
     final id = reminder['id'] as int?;
 
     if (id == null) return;
-
+    // NOTIFIKASI: batalkan reminder yang dihapus
     await notifications.cancelReminder(id);
 
     await _reminderBox?.delete(id.toString());

@@ -109,6 +109,8 @@ class AirQualityData {
   }
 }
 
+// API: URL cuaca, kualitas udara, dan kurs
+
 class ExchangeRates {
   final double sgdToIdr;
   final double sgdToUsd;
@@ -140,6 +142,7 @@ class ApiService {
       'https://api.frankfurter.dev/v1/latest?base=SGD&symbols=IDR,USD';
 
   // 1. Fetch Marina Bay Circuit Weather
+  // API: GET cuaca Marina Bay, pakai fallback jika gagal
   Future<WeatherData> fetchWeather() async {
     try {
       final response = await http
@@ -152,7 +155,7 @@ class ApiService {
     } catch (_) {}
     return WeatherData.fallback();
   }
-
+  // API: GET kualitas udara (PM2.5)
   // 2. Fetch Singapore Marina Bay Air Quality (PM2.5 / Haze)
   Future<AirQualityData> fetchAirQuality() async {
     try {
@@ -166,7 +169,7 @@ class ApiService {
     } catch (_) {}
     return AirQualityData.fallback();
   }
-
+  // API: GET kurs SGD ke IDR dan USD
   // 3. Fetch Currency Rates (SGD to IDR and USD)
   Future<ExchangeRates> fetchExchangeRates() async {
     try {

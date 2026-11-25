@@ -10,7 +10,7 @@ const Color borderColor = Color(0xFF2E2E3D);
 const Color primaryRed = Color(0xFFE10600);
 const Color secondaryText = Color(0xFFB5B5C3);
 const Color successColor = Color(0xFF2ECC71);
-
+// GETX: GetView memberi akses ke VenueController
 class VenuePage extends GetView<VenueController> {
   const VenuePage({super.key});
 
@@ -383,7 +383,7 @@ class VenuePage extends GetView<VenueController> {
               ),
 
               const SizedBox(height: 16),
-
+              // LBS + GETX: daftar gate diperbarui lewat Obx
               // NEAREST GATES
               Obx(() {
                 if (controller.nearbyGates.isEmpty) {
@@ -612,7 +612,7 @@ class _CircuitMapState extends State<_CircuitMap> {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final height = width * 0.75;
-
+        // Peta berupa gambar yang bisa di-zoom dan digeser
         return SizedBox(
           width: width,
           height: height,
@@ -846,7 +846,7 @@ class _ReminderSheetState extends State<ReminderSheet> {
       selectedTime.hour,
       selectedTime.minute,
     );
-
+    // Mengirim tanggal dan jam pilihan ke controller
     try {
       await widget.controller.saveReminder(
         gate: widget.gate,

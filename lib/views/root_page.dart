@@ -110,6 +110,7 @@ class _RootPageState extends State<RootPage> {
         children: [
           const HomePage(),
           const MyTicketsPage(),
+          // VenuePage hanya dibuat saat tab Venue aktif
           if (_currentIndex == 2)
             const VenuePage()
           else
@@ -156,6 +157,7 @@ class _FloatingNav extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(18, 6, 18, 12),
         child: Container(
           padding: const EdgeInsets.all(5),
+          // CHALLENGE: warna latar bottom navigation
           decoration: BoxDecoration(
             color: AppTheme.surfaceBg,
             borderRadius: BorderRadius.circular(30),
@@ -208,6 +210,7 @@ class _NavButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: active ? 16 : 13,
             vertical: 10,
+            // CHALLENGE: warna tab aktif
           ),
           decoration: BoxDecoration(
             color: active ? AppTheme.f1Red : Colors.transparent,

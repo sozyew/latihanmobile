@@ -24,6 +24,8 @@ class HomeController extends GetxController {
   // Race target: Singapore Grand Prix 2027 (October 8, 2027 15:00 SGT)
   static final DateTime raceDate = DateTime(2027, 10, 8, 15, 0, 0);
 
+
+  // GETX: onInit memulai countdown dan mengambil data cuaca
   @override
   void onInit() {
     super.onInit();
@@ -38,6 +40,7 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
+  // Countdown diperbarui setiap 1 detik
   void _startCountdown() {
     _updateTimeLeft();
     _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -60,7 +63,7 @@ class HomeController extends GetxController {
       seconds.value = difference.inSeconds % 60;
     }
   }
-
+  // API: cuaca dan kualitas udara diambil bersamaan
   Future<void> fetchWeatherAndAirQuality() async {
     isLoadingWeather.value = true;
     try {

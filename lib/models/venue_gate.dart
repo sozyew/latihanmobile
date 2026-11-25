@@ -17,7 +17,7 @@ class VenueGate {
     required this.mapX,
     required this.mapY,
   });
-
+  // DATA STATIS: koordinat GPS dan posisi marker tiap gate
   static const List<VenueGate> all = [
     VenueGate(
       id: 'gate1',
